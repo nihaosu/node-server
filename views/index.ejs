@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <table>
+    <%_for(var i = 0; i < data.length; i++) {_%>
+    <tr>
+      <td><a href="<%=data[i].link%>"><%=data[i].name%></a></td>
+    </tr>
+    <%_}_%>
+  </table>
+</body>
+</html>
