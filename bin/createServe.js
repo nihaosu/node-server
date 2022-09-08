@@ -1,6 +1,26 @@
 var debug = require('debug')('node-server:server');
 var http = require('http');
 var net = require('net');
+var os = require("os");
+
+//获取本机ip
+function getIpAddress() {
+  /**os.networkInterfaces() 返回一个对象，该对象包含已分配了网络地址的网络接口 */
+  var interfaces = os.networkInterfaces();
+  for (var devName in interfaces) {
+    var iface = interfaces[devName];
+    for (var i = 0; i < iface.length; i++) {
+      var alias = iface[i];
+      if (
+        alias.family === "IPv4" &&
+        alias.address !== "127.0.0.1" &&
+        !alias.internal
+      ) {
+        return alias.address;
+      }
+    }
+  }
+}
  
 // 检测端口是否被占用
 function portIsOccupied (port) {
@@ -42,7 +62,7 @@ async function createServe (app) {
    */
 
   app.set('port', port);
-  console.log(`http://localhost:${port}/`);
+  console.log(`http://${getIpAddress()}:${port}/`);
 
   /**
    * Create HTTP server.
